@@ -1,0 +1,830 @@
+<!doctype html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Broganda House – Oak Bluffs 2026</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <meta name="description" content="Find and coordinate Oak Bluffs vacation rentals for Broganda's August 2026 gathering." />
+    <style>
+      .card {
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), 0 1px 3px rgba(0, 0, 0, 0.1);
+        transition: transform 0.15s ease, box-shadow 0.15s ease;
+      }
+      .card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      }
+      .pill {
+        border-radius: 9999px;
+        padding: 0.125rem 0.5rem;
+      }
+      .score-badge {
+        background: linear-gradient(135deg, #059669, #10b981);
+      }
+      .new-badge {
+        background: linear-gradient(135deg, #dc2626, #f87171);
+        animation: pulse 2s infinite;
+      }
+      @keyframes pulse {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0.7; }
+      }
+      .filter-btn.active {
+        background: white;
+        color: #1e293b;
+        font-weight: 500;
+      }
+      .status-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        display: inline-block;
+      }
+      .status-available { background: #22c55e; }
+      .status-unknown { background: #eab308; }
+      .status-unavailable { background: #ef4444; }
+    </style>
+  </head>
+  <body class="bg-gray-50 text-gray-800">
+    <!-- Header -->
+    <header class="bg-gradient-to-r from-slate-900 via-slate-800 to-slate-700 text-white sticky top-0 z-50">
+      <div class="max-w-7xl mx-auto px-5 py-4 flex flex-wrap items-center justify-between gap-4">
+        <div>
+          <h1 class="text-2xl md:text-3xl font-semibold tracking-tight">Broganda House</h1>
+          <p class="text-slate-300 text-sm">Oak Bluffs • August 2026</p>
+        </div>
+        <nav class="flex flex-wrap gap-4 text-sm">
+          <a href="#homes" class="hover:underline">Homes</a>
+          <a href="#activities" class="hover:underline">Activities</a>
+          <a href="#calculator" class="hover:underline">Calculator</a>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Status Bar -->
+    <div class="bg-slate-100 border-b border-slate-200">
+      <div class="max-w-7xl mx-auto px-5 py-2 flex flex-wrap items-center justify-between gap-2 text-sm">
+        <div class="flex items-center gap-4">
+          <span class="text-slate-600">
+            <span id="propertyCount" class="font-semibold text-slate-800">0</span> properties tracked
+          </span>
+          <span class="text-slate-600">
+            <span id="matchCount" class="font-semibold text-emerald-600">0</span> meet criteria
+          </span>
+        </div>
+        <div class="flex items-center gap-3">
+          <span id="lastScan" class="text-slate-500">Last scan: Never</span>
+          <button id="scanBtn" class="px-3 py-1 bg-slate-800 text-white rounded-md hover:bg-slate-700 text-sm flex items-center gap-2">
+            <svg class="w-4 h-4" id="scanIcon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+            </svg>
+            <span id="scanText">Scan Now</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <main class="max-w-7xl mx-auto px-5 py-8 space-y-16">
+      <!-- Homes Section -->
+      <section id="homes">
+        <div class="flex flex-wrap items-end justify-between gap-4 mb-6">
+          <div>
+            <h2 class="text-2xl font-semibold">Available Vacation Homes</h2>
+            <p class="text-sm text-gray-600 mt-1">Properties matching Broganda criteria: 4+ BR, 2.5+ BA, walkable to Inkwell/downtown</p>
+          </div>
+          <label class="flex items-center gap-2 text-sm">
+            <input type="checkbox" id="showAllHomes" class="rounded" />
+            <span>Show all (including non-matching)</span>
+          </label>
+        </div>
+
+        <!-- Filters -->
+        <div class="grid gap-4 md:grid-cols-4 items-start mb-6">
+          <!-- Area Filter -->
+          <div class="md:col-span-2">
+            <div class="text-xs text-gray-500 mb-2">Filter by area</div>
+            <div class="flex flex-wrap gap-2" id="homeAreaFilter"></div>
+          </div>
+
+          <!-- Walk Time Filter -->
+          <div class="bg-white rounded-xl p-4 border border-gray-200">
+            <div class="flex items-center gap-2 mb-2 text-gray-700">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M13 4v16M7 8l6-4 6 4M7 16l6 4 6-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+              <span class="text-sm">Max walk to Inkwell</span>
+            </div>
+            <div class="flex items-center gap-3">
+              <input type="range" id="homeWalk" min="5" max="30" step="1" value="15" class="w-full accent-emerald-600" />
+              <span id="homeWalkBadge" class="pill bg-emerald-100 text-emerald-800 text-xs font-medium min-w-[3rem] text-center">15 min</span>
+            </div>
+          </div>
+
+          <!-- Price Filter -->
+          <div class="bg-white rounded-xl p-4 border border-gray-200">
+            <div class="flex items-center gap-2 mb-2 text-gray-700">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+              <span class="text-sm">Max price/week</span>
+            </div>
+            <div class="flex items-center gap-3">
+              <input type="range" id="homePrice" min="5000" max="30000" step="1000" value="25000" class="w-full accent-emerald-600" />
+              <span id="homePriceBadge" class="pill bg-emerald-100 text-emerald-800 text-xs font-medium min-w-[4rem] text-center">$25k</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Search -->
+        <div class="mb-6 max-w-xl">
+          <input id="homeSearch" placeholder="Search by name, features, or description…" class="w-full rounded-lg px-4 py-2.5 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent" />
+        </div>
+
+        <!-- Sort -->
+        <div class="flex items-center gap-2 mb-4 text-sm">
+          <span class="text-gray-500">Sort by:</span>
+          <select id="homeSort" class="rounded border-gray-300 text-sm py-1">
+            <option value="score">Best Match</option>
+            <option value="price-low">Price: Low to High</option>
+            <option value="price-high">Price: High to Low</option>
+            <option value="walk">Walk Time</option>
+            <option value="bedrooms">Bedrooms</option>
+            <option value="newest">Newest First</option>
+          </select>
+        </div>
+
+        <!-- Property Grid -->
+        <div id="homesGrid" class="grid gap-6 md:grid-cols-2 lg:grid-cols-3"></div>
+
+        <!-- Empty State -->
+        <div id="noResults" class="hidden text-center py-12">
+          <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          <h3 class="mt-2 text-sm font-medium text-gray-900">No properties found</h3>
+          <p class="mt-1 text-sm text-gray-500">Try adjusting your filters or run a new scan.</p>
+        </div>
+      </section>
+
+      <!-- Activities Section -->
+      <section id="activities">
+        <h2 class="text-2xl font-semibold mb-2">African‑American Cultural Activities</h2>
+        <p class="mb-6 text-sm text-gray-600">Events and tours during your August 2026 visit. Dates may change; check links for latest details.</p>
+        <div id="activitiesGrid" class="grid gap-6 md:grid-cols-2 lg:grid-cols-3"></div>
+      </section>
+
+      <!-- Calculator Section -->
+      <section id="calculator">
+        <h2 class="text-2xl font-semibold mb-2">Cost‑Share Calculator</h2>
+        <p class="mb-6 text-sm text-gray-600">Allocate rental cost among families based on room type, length of stay, extra adults and children. Assumes a two‑week rental; prorates for shorter stays.</p>
+
+        <!-- Total Rent Input -->
+        <div class="mb-4 flex flex-wrap items-center gap-4">
+          <label for="totalRent" class="font-medium">Total rent for two weeks ($):</label>
+          <input type="number" id="totalRent" value="40000" min="0" class="w-32 rounded-md border border-gray-300 px-3 py-2" />
+          <button id="addRowBtn" class="ml-auto text-sm px-4 py-2 bg-slate-800 text-white rounded-md hover:bg-slate-700">+ Add Family</button>
+        </div>
+
+        <!-- Table -->
+        <div class="overflow-x-auto bg-white rounded-lg border border-gray-200">
+          <table class="min-w-full text-sm">
+            <thead class="bg-gray-50 border-b border-gray-200">
+              <tr>
+                <th class="px-4 py-3 text-left font-medium text-gray-700">Family</th>
+                <th class="px-4 py-3 text-left font-medium text-gray-700">Room Type</th>
+                <th class="px-4 py-3 text-left font-medium text-gray-700">Stay Duration</th>
+                <th class="px-4 py-3 text-left font-medium text-gray-700">Extra Adults</th>
+                <th class="px-4 py-3 text-left font-medium text-gray-700">Kids</th>
+                <th class="px-4 py-3 text-left font-medium text-gray-700">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="calcBody" class="divide-y divide-gray-100"></tbody>
+          </table>
+        </div>
+
+        <div class="mt-4">
+          <button id="calcBtn" class="px-6 py-2.5 bg-emerald-600 text-white rounded-md hover:bg-emerald-500 font-medium">Calculate Shares</button>
+        </div>
+
+        <!-- Results -->
+        <div id="results" class="mt-8 hidden">
+          <h3 class="text-xl font-semibold mb-3">Results</h3>
+          <div id="costPerShare" class="mb-4 text-lg font-medium text-emerald-700"></div>
+          <div class="overflow-x-auto bg-white rounded-lg border border-gray-200">
+            <table class="min-w-full text-sm">
+              <thead class="bg-gray-50 border-b border-gray-200">
+                <tr>
+                  <th class="px-4 py-3 text-left font-medium text-gray-700">Family</th>
+                  <th class="px-4 py-3 text-right font-medium text-gray-700">Base Shares</th>
+                  <th class="px-4 py-3 text-right font-medium text-gray-700">Extra Adult</th>
+                  <th class="px-4 py-3 text-right font-medium text-gray-700">Kid Shares</th>
+                  <th class="px-4 py-3 text-right font-medium text-gray-700">Total Shares</th>
+                  <th class="px-4 py-3 text-right font-medium text-gray-700">Amount Owed</th>
+                </tr>
+              </thead>
+              <tbody id="resultsBody" class="divide-y divide-gray-100"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="mt-16 border-t border-gray-200 bg-white">
+      <div class="max-w-7xl mx-auto px-5 py-6 text-sm text-gray-600 flex flex-wrap items-center justify-between gap-2">
+        <div class="flex items-center gap-2">
+          <span>© <span id="year"></span> Broganda House</span>
+          <span class="text-gray-300">•</span>
+          <span>Martha's Vineyard</span>
+        </div>
+        <span class="text-gray-400">Property discovery powered by Broganda Scout</span>
+      </div>
+    </footer>
+
+    <script>
+      // =============================================================================
+      // DATA & STATE
+      // =============================================================================
+
+      let homesData = [];
+      let activitiesData = [];
+      let activeHomeArea = "All Areas";
+      let maxHomeWalk = 15;
+      let maxHomePrice = 25000;
+      let homeSearchQuery = "";
+      let homeSort = "score";
+      let showAllHomes = false;
+
+      // Activities - loaded from activities.json or embedded
+      activitiesData = [
+        {
+          title: "Martha's Vineyard African American Film Festival",
+          dateRange: "Aug 7–15, 2026",
+          description: "Nine-day Oscar-qualifying festival celebrating Black cinema with screenings, talkbacks and special events.",
+          location: "MV Performing Arts Center, Oak Bluffs",
+          url: "https://www.mvaaff.com/"
+        },
+        {
+          title: "African American Heritage Tour – Oak Bluffs",
+          dateRange: "Daily at 10 AM (summer)",
+          description: "1.5-hour fully narrated driving tour exploring African-American heritage sites. Children 12 and under half price.",
+          location: "Oak Bluffs Ferry Terminal",
+          url: "https://mvafricanamericanheritagetrail.org/tours/"
+        },
+        {
+          title: "Heritage Tour – Oak Bluffs & Edgartown",
+          dateRange: "Mon–Sat at 1:30 PM (summer)",
+          description: "2.5-hour driving tour covering both towns' African-American history and landmarks.",
+          location: "Oak Bluffs Ferry Terminal",
+          url: "https://mvafricanamericanheritagetrail.org/tours/"
+        },
+        {
+          title: "All-Island Heritage Tour",
+          dateRange: "Sundays at 1:30 PM (summer)",
+          description: "4.5-hour complete island tour including Oak Bluffs, Edgartown, Chilmark and Aquinnah with break at the Cliffs.",
+          location: "Oak Bluffs Ferry Terminal",
+          url: "https://mvafricanamericanheritagetrail.org/tours/"
+        },
+        {
+          title: "Highlands Walking Tour",
+          dateRange: "Wed & Sat 11 AM–12:15 PM",
+          description: "Guided walking tour of six Heritage Trail sites in the historic Highlands neighborhood.",
+          location: "Chapman & Wayland Avenues",
+          url: "https://mvafricanamericanheritagetrail.org/tours/"
+        },
+        {
+          title: "Polar Bears Swimming Club",
+          dateRange: "Daily at 7 AM (summer)",
+          description: "Historic Black swimming club meets every morning at Inkwell Beach. Visitors welcome to join the swim.",
+          location: "Inkwell Beach, Oak Bluffs",
+          url: "https://www.mvpolarbears.com/"
+        }
+      ];
+
+      // Try to load from external JSON file
+      fetch('activities.json')
+        .then(r => r.json())
+        .then(data => {
+          if (data && data.length > 0) {
+            activitiesData = data;
+            renderActivities();
+          }
+        })
+        .catch(() => { /* Use embedded data */ });
+
+      // Properties - loaded from homes.json or embedded
+      // This can be populated by the Broganda Scout backend
+      homesData = [
+        {
+          id: "op-7br",
+          title: "Ocean Park 7‑BR Victorian",
+          subtitle: "Biggers Cottage",
+          area: "Ocean Park",
+          bedrooms: 7,
+          baths: 3.5,
+          sleeps: 14,
+          walkMinutes: 3,
+          price: 16500,
+          priceDisplay: "$14,500–$18,500/wk",
+          augustAvailable: true,
+          description: "Renovated Victorian facing Ocean Park; Sub-Zero/Wolf kitchen, wet bar, wrap-around porch, two patios.",
+          features: ["Central A/C", "Chef's Kitchen", "Wrap Porch", "2 Patios", "Outdoor Shower"],
+          proximity: "1–2 min to Ocean Park; 2–4 min to Inkwell; 3 min to Circuit Ave.",
+          img: "images/oceanpark7br.jpg",
+          url: "https://oceanparkrentals.com/7-br-house-in-oak-bluffs-walk-to-town-and-beach-520/property.224",
+          source: "Ocean Park Rentals",
+          score: 92,
+          isNew: false,
+          firstSeen: "2025-01-05"
+        },
+        {
+          id: "op-6br",
+          title: "Ocean Park Spectacular 6‑BR",
+          subtitle: "Carousel House",
+          area: "Ocean Park",
+          bedrooms: 6,
+          baths: 3,
+          sleeps: 12,
+          walkMinutes: 2,
+          price: 19000,
+          priceDisplay: "$19,000/wk",
+          augustAvailable: true,
+          description: "Historic Victorian on Ocean Park; fully renovated with central A/C, chef's kitchen and wrap-around porch.",
+          features: ["Central A/C", "Historic Victorian", "Beach Views", "Full Renovation"],
+          proximity: "~60–90 sec to Circuit Ave; across from the beach.",
+          img: "images/oceanpark6br.jpg",
+          url: "https://oceanparkrentals.com/ocean-park-spectacular-6-br-home-with-ac-obcla/property.146",
+          source: "Ocean Park Rentals",
+          score: 88,
+          isNew: true,
+          firstSeen: "2025-01-08"
+        },
+        {
+          id: "harbor-5br",
+          title: "Waterfront 5‑BR by Ferry Dock",
+          subtitle: "Downtown Luxury",
+          area: "Harbor / Downtown",
+          bedrooms: 5,
+          baths: 5,
+          sleeps: 10,
+          walkMinutes: 6,
+          price: 25000,
+          priceDisplay: "$25,000/wk",
+          augustAvailable: null,
+          description: "Direct harbor views; steps to the ferry, shops and restaurants; five full baths.",
+          features: ["Harbor Views", "5 Full Baths", "Steps to Ferry", "Prime Location"],
+          proximity: "Immediate downtown; 2–4 min to Ocean Park; ~5 min to Inkwell.",
+          img: "images/property2347.jpg",
+          url: "https://www.marthasvineyardrentals.org/rental.2347",
+          source: "MV Rentals",
+          score: 75,
+          isNew: false,
+          firstSeen: "2024-12-15"
+        },
+        {
+          id: "classic-6br",
+          title: "Classic Vineyard Cottage",
+          subtitle: "Near Jetty Beach",
+          area: "East Chop",
+          bedrooms: 6,
+          baths: 3,
+          sleeps: 10,
+          walkMinutes: 12,
+          price: 7250,
+          priceDisplay: "$7,000–$7,500/wk",
+          augustAvailable: true,
+          description: "Authentic Vineyard cottage with sunroom and wrap-around porch; garden area and multiple sitting areas.",
+          features: ["Sunroom", "Wrap Porch", "Garden", "Classic Style"],
+          proximity: "0.3 mi to Jetty Beach; 10–12 min walk to downtown.",
+          img: "images/classic_vineyard.jpg",
+          url: "https://www.weneedavacation.com/Marthas-Vineyard/Oak-Bluffs-Vacation-Rental-12900/",
+          source: "WeNeedAVacation",
+          score: 82,
+          isNew: false,
+          firstSeen: "2024-11-20"
+        },
+        {
+          id: "ec-victorian",
+          title: "Timeless East Chop Victorian",
+          subtitle: "Steps to Jetty Beach",
+          area: "East Chop",
+          bedrooms: 5,
+          baths: 4.5,
+          sleeps: 12,
+          walkMinutes: 14,
+          price: 12500,
+          priceDisplay: "$12,500/wk",
+          augustAvailable: null,
+          description: "Renovated Victorian with vaulted primary suite and Juliet balcony; wrap-around porch; linens included.",
+          features: ["Vaulted Suite", "Juliet Balcony", "Linens Included", "Near Beach"],
+          proximity: "Steps to Jetty Beach (~0.2 mi); 12–15 min walk to downtown.",
+          img: "images/eastchop5br.jpg",
+          url: "https://marthasrealestate.com/timeless-victorian-5-br-house-located-in-the-heart-of-east-chop-1341/home.3547",
+          source: "Martha's RE",
+          score: 70,
+          isNew: false,
+          firstSeen: "2024-12-01"
+        },
+        {
+          id: "ob-modern",
+          title: "Modern 5‑BR with A/C",
+          subtitle: "Gourmet Kitchen",
+          area: "Oak Bluffs",
+          bedrooms: 5,
+          baths: 4.5,
+          sleeps: 10,
+          walkMinutes: 8,
+          price: 8400,
+          priceDisplay: "$8,400/wk (2025, 2026 TBD)",
+          augustAvailable: null,
+          description: "Granite kitchen with breakfast bar, hardwood floors, outdoor shower and grill; five TVs throughout.",
+          features: ["Central A/C", "Gourmet Kitchen", "Outdoor Shower", "Modern Design"],
+          proximity: "~0.8 mi (~15 min) to downtown; short stroll to beaches via paths.",
+          img: "images/house1286.jpg",
+          url: "https://marthasrealestate.com/5-br-house-in-oak-bluffs-1286/home.2075",
+          source: "Martha's RE",
+          score: 68,
+          isNew: false,
+          firstSeen: "2024-12-10"
+        }
+      ];
+
+      // Try to load from external JSON file (allows scanner backend to update data)
+      fetch('homes.json')
+        .then(r => r.json())
+        .then(data => {
+          if (data && data.length > 0) {
+            homesData = data;
+            renderHomeFilters();
+            renderHomes();
+          }
+        })
+        .catch(() => { /* Use embedded data */ });
+
+      // =============================================================================
+      // DOM REFERENCES
+      // =============================================================================
+
+      const homeAreaFilterEl = document.getElementById('homeAreaFilter');
+      const homeWalkRange = document.getElementById('homeWalk');
+      const homeWalkBadge = document.getElementById('homeWalkBadge');
+      const homePriceRange = document.getElementById('homePrice');
+      const homePriceBadge = document.getElementById('homePriceBadge');
+      const homeSearchInput = document.getElementById('homeSearch');
+      const homeSortSelect = document.getElementById('homeSort');
+      const showAllCheckbox = document.getElementById('showAllHomes');
+      const homesGrid = document.getElementById('homesGrid');
+      const noResultsEl = document.getElementById('noResults');
+      const propertyCountEl = document.getElementById('propertyCount');
+      const matchCountEl = document.getElementById('matchCount');
+      const activitiesGrid = document.getElementById('activitiesGrid');
+
+      // =============================================================================
+      // PROPERTY RENDERING
+      // =============================================================================
+
+      function getUniqueAreas() {
+        const areas = new Set(homesData.map(h => h.area));
+        return ["All Areas", ...Array.from(areas).sort()];
+      }
+
+      function meetsBaseCriteria(h) {
+        return h.bedrooms >= 4 && h.baths >= 2.5 && h.walkMinutes <= 15;
+      }
+
+      function renderHomeFilters() {
+        homeAreaFilterEl.innerHTML = '';
+        const areas = getUniqueAreas();
+
+        areas.forEach(area => {
+          const btn = document.createElement('button');
+          btn.className = `filter-btn px-3 py-1.5 rounded-lg text-sm transition-colors ${
+            area === activeHomeArea
+              ? 'active bg-white text-slate-900 shadow-sm'
+              : 'bg-white/50 text-slate-700 hover:bg-white/80'
+          }`;
+          btn.textContent = area;
+          btn.onclick = () => {
+            activeHomeArea = area;
+            renderHomeFilters();
+            renderHomes();
+          };
+          homeAreaFilterEl.appendChild(btn);
+        });
+      }
+
+      function filterAndSortHomes() {
+        let filtered = homesData
+          .filter(h => activeHomeArea === 'All Areas' || h.area === activeHomeArea)
+          .filter(h => h.walkMinutes <= maxHomeWalk)
+          .filter(h => !h.price || h.price <= maxHomePrice)
+          .filter(h => {
+            if (!homeSearchQuery) return true;
+            const searchText = `${h.title} ${h.subtitle || ''} ${h.area} ${h.description} ${(h.features || []).join(' ')}`.toLowerCase();
+            return searchText.includes(homeSearchQuery);
+          });
+
+        // Filter to only matching unless "show all" is checked
+        if (!showAllHomes) {
+          filtered = filtered.filter(meetsBaseCriteria);
+        }
+
+        // Sort
+        switch (homeSort) {
+          case 'score':
+            filtered.sort((a, b) => (b.score || 0) - (a.score || 0));
+            break;
+          case 'price-low':
+            filtered.sort((a, b) => (a.price || 99999) - (b.price || 99999));
+            break;
+          case 'price-high':
+            filtered.sort((a, b) => (b.price || 0) - (a.price || 0));
+            break;
+          case 'walk':
+            filtered.sort((a, b) => a.walkMinutes - b.walkMinutes);
+            break;
+          case 'bedrooms':
+            filtered.sort((a, b) => b.bedrooms - a.bedrooms);
+            break;
+          case 'newest':
+            filtered.sort((a, b) => new Date(b.firstSeen || 0) - new Date(a.firstSeen || 0));
+            break;
+        }
+
+        return filtered;
+      }
+
+      function renderHomes() {
+        const filtered = filterAndSortHomes();
+        homesGrid.innerHTML = '';
+
+        // Update counts
+        propertyCountEl.textContent = homesData.length;
+        matchCountEl.textContent = homesData.filter(meetsBaseCriteria).length;
+
+        if (filtered.length === 0) {
+          noResultsEl.classList.remove('hidden');
+          return;
+        }
+        noResultsEl.classList.add('hidden');
+
+        filtered.forEach(h => {
+          const meetsCriteria = meetsBaseCriteria(h);
+          const availabilityStatus = h.augustAvailable === true ? 'available'
+            : h.augustAvailable === false ? 'unavailable'
+            : 'unknown';
+          const availabilityText = h.augustAvailable === true ? 'Aug 2026 Available'
+            : h.augustAvailable === false ? 'Aug 2026 Booked'
+            : 'Availability TBD';
+
+          const card = document.createElement('article');
+          card.className = `card overflow-hidden border rounded-xl bg-white flex flex-col ${
+            meetsCriteria ? 'border-emerald-200' : 'border-gray-200 opacity-75'
+          }`;
+
+          card.innerHTML = `
+            <div class="aspect-[4/3] bg-gray-100 overflow-hidden relative">
+              <img src="${h.img}" alt="${h.title}" class="w-full h-full object-cover" loading="lazy" />
+              ${h.isNew ? '<span class="new-badge absolute top-2 left-2 text-white text-xs px-2 py-1 rounded-full font-medium">NEW</span>' : ''}
+              ${h.score ? `<span class="score-badge absolute top-2 right-2 text-white text-xs px-2 py-1 rounded-full font-medium">${h.score} pts</span>` : ''}
+            </div>
+            <div class="p-4 flex-1 flex flex-col">
+              <div class="flex items-start justify-between gap-2 mb-1">
+                <h3 class="font-semibold text-gray-900 leading-tight">${h.title}</h3>
+              </div>
+              ${h.subtitle ? `<div class="text-sm text-gray-500 mb-2">${h.subtitle}</div>` : ''}
+
+              <div class="flex flex-wrap gap-x-3 gap-y-1 text-sm text-gray-600 mb-3">
+                <span>${h.bedrooms} BR</span>
+                <span>${h.baths} BA</span>
+                <span>Sleeps ${h.sleeps}</span>
+                <span>~${h.walkMinutes} min walk</span>
+              </div>
+
+              <div class="flex items-center gap-2 mb-3">
+                <span class="status-dot status-${availabilityStatus}"></span>
+                <span class="text-xs text-gray-500">${availabilityText}</span>
+              </div>
+
+              <p class="text-sm text-gray-600 mb-3 line-clamp-2">${h.description}</p>
+
+              ${h.features && h.features.length > 0 ? `
+                <div class="flex flex-wrap gap-1.5 mb-3">
+                  ${h.features.slice(0, 4).map(f => `<span class="text-xs bg-gray-100 text-gray-600 px-2 py-0.5 rounded">${f}</span>`).join('')}
+                </div>
+              ` : ''}
+
+              <div class="mt-auto pt-3 border-t border-gray-100 flex items-center justify-between">
+                <div>
+                  <div class="font-semibold text-gray-900">${h.priceDisplay}</div>
+                  <div class="text-xs text-gray-500">${h.source}</div>
+                </div>
+                <a href="${h.url}" target="_blank" class="text-sm px-4 py-2 rounded-lg bg-slate-800 text-white hover:bg-slate-700 transition-colors">
+                  View →
+                </a>
+              </div>
+            </div>
+          `;
+
+          homesGrid.appendChild(card);
+        });
+      }
+
+      // =============================================================================
+      // ACTIVITIES RENDERING
+      // =============================================================================
+
+      function renderActivities() {
+        activitiesGrid.innerHTML = '';
+
+        activitiesData.forEach(act => {
+          const card = document.createElement('article');
+          card.className = 'card overflow-hidden border border-gray-200 rounded-xl bg-white flex flex-col';
+          card.innerHTML = `
+            <div class="p-4 border-b border-gray-100 bg-gradient-to-r from-slate-800 to-slate-700 text-white">
+              <h3 class="font-semibold">${act.title}</h3>
+              <div class="text-sm text-slate-300 mt-1">${act.dateRange}</div>
+            </div>
+            <div class="p-4 flex-1">
+              <p class="text-sm text-gray-700 mb-3">${act.description}</p>
+              <p class="text-xs text-gray-500"><strong>Location:</strong> ${act.location}</p>
+            </div>
+            <div class="p-4 border-t border-gray-100">
+              <a href="${act.url}" target="_blank" class="text-sm px-4 py-2 rounded-lg border border-gray-300 hover:bg-gray-50 transition-colors inline-block">
+                More info →
+              </a>
+            </div>
+          `;
+          activitiesGrid.appendChild(card);
+        });
+      }
+
+      // =============================================================================
+      // CALCULATOR
+      // =============================================================================
+
+      const calcBody = document.getElementById('calcBody');
+      const resultsDiv = document.getElementById('results');
+      const resultsBody = document.getElementById('resultsBody');
+      const costPerShareEl = document.getElementById('costPerShare');
+
+      const baseShares = { 'Master': 2, 'Standard': 1, 'Small': 0.75, 'Bunk': 0 };
+      const durationOptions = [
+        { value: '14', label: '2 weeks (14 nights)' },
+        { value: '7', label: 'Week 1 (7 nights)' },
+        { value: '7b', label: 'Week 2 (7 nights)' },
+        { value: '2', label: 'Weekend (2 nights)' }
+      ];
+
+      function createCalcRow() {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td class="px-4 py-3"><input type="text" class="w-full px-2 py-1.5 border border-gray-300 rounded-md text-sm" placeholder="Family name" /></td>
+          <td class="px-4 py-3">
+            <select class="w-full px-2 py-1.5 border border-gray-300 rounded-md text-sm">
+              <option value="Master">Master</option>
+              <option value="Standard" selected>Standard</option>
+              <option value="Small">Small</option>
+              <option value="Bunk">Bunk</option>
+            </select>
+          </td>
+          <td class="px-4 py-3">
+            <select class="w-full px-2 py-1.5 border border-gray-300 rounded-md text-sm">
+              ${durationOptions.map(opt => `<option value="${opt.value}">${opt.label}</option>`).join('')}
+            </select>
+          </td>
+          <td class="px-4 py-3"><input type="number" min="0" value="0" class="w-16 px-2 py-1.5 border border-gray-300 rounded-md text-sm text-center" /></td>
+          <td class="px-4 py-3"><input type="number" min="0" value="0" class="w-16 px-2 py-1.5 border border-gray-300 rounded-md text-sm text-center" /></td>
+          <td class="px-4 py-3">
+            <button type="button" class="text-red-600 hover:text-red-800 text-sm removeRow">Remove</button>
+          </td>
+        `;
+        tr.querySelector('.removeRow').addEventListener('click', () => tr.remove());
+        calcBody.appendChild(tr);
+      }
+
+      function calculateShares() {
+        const rows = calcBody.querySelectorAll('tr');
+        const stays = [];
+        let totalKidNights = 0;
+
+        rows.forEach(tr => {
+          const inputs = tr.querySelectorAll('input, select');
+          const familyName = inputs[0].value || 'Family';
+          const roomType = inputs[1].value;
+          let nights = parseInt(inputs[2].value) || 0;
+          if (inputs[2].value === '7b') nights = 7;
+          const extraAdults = parseInt(inputs[3].value) || 0;
+          const kids = parseInt(inputs[4].value) || 0;
+          const kidNights = kids * nights;
+          totalKidNights += kidNights;
+          stays.push({ familyName, roomType, nights, extraAdults, kids, kidNights });
+        });
+
+        const extraAdultSharePerWeek = 0.25;
+        const bunkShareTotal = 2; // 1 per week × 2 weeks
+        let grandTotalShares = 0;
+
+        const results = stays.map(s => {
+          const baseShare = baseShares[s.roomType] || 0;
+          const weeksFrac = s.nights / 7;
+          const baseShareForStay = baseShare * weeksFrac;
+          const extraAdultShareForStay = extraAdultSharePerWeek * s.extraAdults * weeksFrac;
+          let kidShare = totalKidNights > 0 ? (s.kidNights / totalKidNights) * bunkShareTotal : 0;
+          const totalShare = baseShareForStay + extraAdultShareForStay + kidShare;
+          grandTotalShares += totalShare;
+          return { ...s, baseShareForStay, extraAdultShareForStay, kidShare, totalShare };
+        });
+
+        const totalRent = parseFloat(document.getElementById('totalRent').value) || 0;
+        const costPerShare = grandTotalShares > 0 ? totalRent / grandTotalShares : 0;
+
+        resultsBody.innerHTML = '';
+        results.forEach(r => {
+          const amountOwed = costPerShare * r.totalShare;
+          const tr = document.createElement('tr');
+          tr.innerHTML = `
+            <td class="px-4 py-3 font-medium">${r.familyName}</td>
+            <td class="px-4 py-3 text-right text-gray-600">${r.baseShareForStay.toFixed(2)}</td>
+            <td class="px-4 py-3 text-right text-gray-600">${r.extraAdultShareForStay.toFixed(2)}</td>
+            <td class="px-4 py-3 text-right text-gray-600">${r.kidShare.toFixed(2)}</td>
+            <td class="px-4 py-3 text-right font-medium">${r.totalShare.toFixed(2)}</td>
+            <td class="px-4 py-3 text-right font-bold text-emerald-700">$${amountOwed.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</td>
+          `;
+          resultsBody.appendChild(tr);
+        });
+
+        costPerShareEl.textContent = `Cost per share: $${costPerShare.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+        resultsDiv.classList.remove('hidden');
+      }
+
+      // =============================================================================
+      // EVENT LISTENERS
+      // =============================================================================
+
+      homeWalkRange.addEventListener('input', e => {
+        maxHomeWalk = parseInt(e.target.value);
+        homeWalkBadge.textContent = maxHomeWalk + ' min';
+        renderHomes();
+      });
+
+      homePriceRange.addEventListener('input', e => {
+        maxHomePrice = parseInt(e.target.value);
+        homePriceBadge.textContent = '$' + (maxHomePrice / 1000) + 'k';
+        renderHomes();
+      });
+
+      homeSearchInput.addEventListener('input', e => {
+        homeSearchQuery = e.target.value.toLowerCase();
+        renderHomes();
+      });
+
+      homeSortSelect.addEventListener('change', e => {
+        homeSort = e.target.value;
+        renderHomes();
+      });
+
+      showAllCheckbox.addEventListener('change', e => {
+        showAllHomes = e.target.checked;
+        renderHomes();
+      });
+
+      document.getElementById('addRowBtn').addEventListener('click', createCalcRow);
+      document.getElementById('calcBtn').addEventListener('click', calculateShares);
+
+      document.getElementById('scanBtn').addEventListener('click', () => {
+        const btn = document.getElementById('scanBtn');
+        const icon = document.getElementById('scanIcon');
+        const text = document.getElementById('scanText');
+
+        btn.disabled = true;
+        icon.classList.add('animate-spin');
+        text.textContent = 'Scanning...';
+
+        // Simulate scan (in real implementation, this would call the backend)
+        setTimeout(() => {
+          btn.disabled = false;
+          icon.classList.remove('animate-spin');
+          text.textContent = 'Scan Now';
+          document.getElementById('lastScan').textContent = 'Last scan: Just now';
+
+          // Could add a new property to demonstrate
+          alert('Scan complete! In the full version, this queries rental sites for new listings.');
+        }, 2000);
+      });
+
+      // =============================================================================
+      // INITIALIZE
+      // =============================================================================
+
+      document.getElementById('year').textContent = new Date().getFullYear();
+
+      // Initial render
+      renderHomeFilters();
+      renderHomes();
+      renderActivities();
+
+      // Add initial calculator rows
+      createCalcRow();
+      createCalcRow();
+      createCalcRow();
+    </script>
+  </body>
+</html>

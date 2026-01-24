@@ -1,0 +1,30 @@
+{
+  "name": "broganda-scanner",
+  "version": "1.0.0",
+  "description": "Vacation rental scanner for Martha's Vineyard properties",
+  "main": "dist/index.js",
+  "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "scan": "tsx src/index.ts",
+    "scan:weneedavacation": "tsx src/index.ts --source weneedavacation",
+    "scan:mvvacationrentals": "tsx src/index.ts --source mvvacationrentals",
+    "scan:mvrentals": "tsx src/index.ts --source mvrentals",
+    "test": "tsx src/test-scraper.ts"
+  },
+  "dependencies": {
+    "playwright": "^1.40.0",
+    "commander": "^11.1.0",
+    "dotenv": "^16.3.1",
+    "nodemailer": "^6.9.7"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "@types/nodemailer": "^6.4.14",
+    "tsx": "^4.6.0",
+    "typescript": "^5.3.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

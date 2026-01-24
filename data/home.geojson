@@ -1,0 +1,20 @@
+{
+  "type": "FeatureCollection",
+  "name": "Home Marker",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Home",
+        "address": "640 Irwin St NE, Atlanta, GA 30312",
+        "neighborhood": "Old Fourth Ward",
+        "symbolType": "star",
+        "color": "#B08A00"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-84.3652, 33.7578]
+      }
+    }
+  ]
+}

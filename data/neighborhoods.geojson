@@ -1,0 +1,510 @@
+{
+  "type": "FeatureCollection",
+  "name": "Atlanta Neighborhoods",
+  "source": "Derived from City of Atlanta NPU boundaries and OpenStreetMap",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Old Fourth Ward",
+        "shortName": "O4W",
+        "character": "Historic civil rights district, now vibrant mixed-use neighborhood along the BeltLine"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [-84.3785, 33.7680],
+          [-84.3590, 33.7680],
+          [-84.3590, 33.7620],
+          [-84.3545, 33.7620],
+          [-84.3545, 33.7505],
+          [-84.3680, 33.7505],
+          [-84.3785, 33.7505],
+          [-84.3785, 33.7680]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Inman Park",
+        "shortName": "Inman Park",
+        "character": "Atlanta's first planned suburb (1889), Victorian architecture, festivals, and the BeltLine"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [-84.3590, 33.7680],
+          [-84.3480, 33.7680],
+          [-84.3440, 33.7630],
+          [-84.3440, 33.7540],
+          [-84.3545, 33.7540],
+          [-84.3545, 33.7620],
+          [-84.3590, 33.7620],
+          [-84.3590, 33.7680]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Virginia-Highland",
+        "shortName": "VaHi",
+        "character": "Charming walkable village with local shops, restaurants, and tree-lined streets"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [-84.3560, 33.7870],
+          [-84.3440, 33.7870],
+          [-84.3400, 33.7780],
+          [-84.3440, 33.7680],
+          [-84.3560, 33.7680],
+          [-84.3560, 33.7870]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Midtown",
+        "shortName": "Midtown",
+        "character": "Atlanta's arts and culture hub, home to Piedmont Park, theaters, and museums"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [-84.4010, 33.7950],
+          [-84.3720, 33.7950],
+          [-84.3720, 33.7850],
+          [-84.3785, 33.7850],
+          [-84.3785, 33.7680],
+          [-84.3900, 33.7680],
+          [-84.4010, 33.7680],
+          [-84.4010, 33.7950]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Piedmont Park",
+        "shortName": "Piedmont Park",
+        "character": "Atlanta's beloved urban green space and gathering place since 1904"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [-84.3785, 33.7950],
+          [-84.3680, 33.7950],
+          [-84.3680, 33.7850],
+          [-84.3785, 33.7850],
+          [-84.3785, 33.7950]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Poncey-Highland",
+        "shortName": "Poncey-Highland",
+        "character": "Eclectic neighborhood bridging Midtown and Inman Park along Ponce de Leon"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [-84.3720, 33.7850],
+          [-84.3560, 33.7850],
+          [-84.3560, 33.7680],
+          [-84.3590, 33.7680],
+          [-84.3720, 33.7680],
+          [-84.3720, 33.7850]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Grant Park",
+        "shortName": "Grant Park",
+        "character": "Historic neighborhood surrounding Atlanta's oldest park, home to Zoo Atlanta"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [-84.3785, 33.7505],
+          [-84.3545, 33.7505],
+          [-84.3545, 33.7270],
+          [-84.3680, 33.7270],
+          [-84.3785, 33.7270],
+          [-84.3785, 33.7505]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Summerhill",
+        "shortName": "Summerhill",
+        "character": "Revitalizing neighborhood near Georgia State Stadium with deep historical roots"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [-84.3900, 33.7420],
+          [-84.3785, 33.7420],
+          [-84.3785, 33.7320],
+          [-84.3900, 33.7320],
+          [-84.3900, 33.7420]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Cabbagetown",
+        "shortName": "Cabbagetown",
+        "character": "Former mill village with colorful shotgun houses and strong community identity"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [-84.3680, 33.7540],
+          [-84.3545, 33.7540],
+          [-84.3545, 33.7460],
+          [-84.3680, 33.7460],
+          [-84.3680, 33.7540]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Reynoldstown",
+        "shortName": "Reynoldstown",
+        "character": "Working-class neighborhood turned arts district along the BeltLine Eastside Trail"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [-84.3545, 33.7540],
+          [-84.3440, 33.7540],
+          [-84.3440, 33.7440],
+          [-84.3545, 33.7440],
+          [-84.3545, 33.7540]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Edgewood",
+        "shortName": "Edgewood",
+        "character": "Historic streetcar suburb with diverse community and proximity to downtown"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [-84.3440, 33.7540],
+          [-84.3340, 33.7540],
+          [-84.3340, 33.7450],
+          [-84.3440, 33.7450],
+          [-84.3440, 33.7540]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Kirkwood",
+        "shortName": "Kirkwood",
+        "character": "Family-friendly neighborhood with historic homes and local restaurants"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [-84.3340, 33.7580],
+          [-84.3180, 33.7580],
+          [-84.3180, 33.7450],
+          [-84.3340, 33.7450],
+          [-84.3340, 33.7580]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "East Lake",
+        "shortName": "East Lake",
+        "character": "Historic golf community symbolizing Atlanta's community revitalization success"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [-84.3180, 33.7620],
+          [-84.3010, 33.7620],
+          [-84.3010, 33.7420],
+          [-84.3180, 33.7420],
+          [-84.3180, 33.7620]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Sweet Auburn",
+        "shortName": "Sweet Auburn",
+        "character": "Historic African American commercial district, birthplace of Dr. Martin Luther King Jr."
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [-84.3860, 33.7580],
+          [-84.3680, 33.7580],
+          [-84.3680, 33.7505],
+          [-84.3860, 33.7505],
+          [-84.3860, 33.7580]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Downtown",
+        "shortName": "Downtown",
+        "character": "Atlanta's commercial core with historic landmarks and modern development"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [-84.4010, 33.7680],
+          [-84.3860, 33.7680],
+          [-84.3860, 33.7505],
+          [-84.3900, 33.7505],
+          [-84.3900, 33.7420],
+          [-84.4010, 33.7420],
+          [-84.4010, 33.7680]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Atlanta University Center",
+        "shortName": "AUC",
+        "character": "Consortium of HBCUs including Morehouse, Spelman, Clark Atlanta, and Morris Brown"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [-84.4220, 33.7560],
+          [-84.4020, 33.7560],
+          [-84.4020, 33.7400],
+          [-84.4220, 33.7400],
+          [-84.4220, 33.7560]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Vine City",
+        "shortName": "Vine City",
+        "character": "Historic neighborhood, home of Dr. King's later residence, undergoing revitalization"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [-84.4220, 33.7650],
+          [-84.4020, 33.7650],
+          [-84.4020, 33.7560],
+          [-84.4220, 33.7560],
+          [-84.4220, 33.7650]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "English Avenue",
+        "shortName": "English Ave",
+        "character": "Historic neighborhood with ongoing community-led revitalization efforts"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [-84.4220, 33.7750],
+          [-84.4020, 33.7750],
+          [-84.4020, 33.7650],
+          [-84.4220, 33.7650],
+          [-84.4220, 33.7750]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Candler Park",
+        "shortName": "Candler Park",
+        "character": "Walkable neighborhood with golf course, pool, and proximity to Little Five Points"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [-84.3480, 33.7680],
+          [-84.3340, 33.7680],
+          [-84.3340, 33.7580],
+          [-84.3440, 33.7580],
+          [-84.3440, 33.7630],
+          [-84.3480, 33.7680]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Little Five Points",
+        "shortName": "L5P",
+        "character": "Atlanta's bohemian hub with independent shops, vintage stores, and counterculture"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [-84.3520, 33.7660],
+          [-84.3440, 33.7660],
+          [-84.3440, 33.7600],
+          [-84.3520, 33.7600],
+          [-84.3520, 33.7660]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Lake Claire",
+        "shortName": "Lake Claire",
+        "character": "Quiet residential neighborhood with community gardens and nature preserve"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [-84.3340, 33.7680],
+          [-84.3220, 33.7680],
+          [-84.3220, 33.7580],
+          [-84.3340, 33.7580],
+          [-84.3340, 33.7680]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Druid Hills",
+        "shortName": "Druid Hills",
+        "character": "Frederick Law Olmsted-designed neighborhood with grand estates and Emory University"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [-84.3400, 33.7870],
+          [-84.3180, 33.7870],
+          [-84.3180, 33.7680],
+          [-84.3220, 33.7680],
+          [-84.3340, 33.7680],
+          [-84.3400, 33.7780],
+          [-84.3400, 33.7870]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Decatur",
+        "shortName": "Decatur",
+        "character": "Vibrant independent city with walkable downtown, restaurants, and community events"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [-84.3180, 33.7870],
+          [-84.2800, 33.7870],
+          [-84.2800, 33.7680],
+          [-84.3180, 33.7680],
+          [-84.3180, 33.7870]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Ormewood Park",
+        "shortName": "Ormewood Park",
+        "character": "Family neighborhood with Brownwood Park and proximity to Grant Park"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [-84.3545, 33.7440],
+          [-84.3400, 33.7440],
+          [-84.3400, 33.7320],
+          [-84.3545, 33.7320],
+          [-84.3545, 33.7440]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "East Atlanta",
+        "shortName": "East Atlanta",
+        "character": "Hip neighborhood with local music venues, bars, and community village atmosphere"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [-84.3400, 33.7440],
+          [-84.3250, 33.7440],
+          [-84.3250, 33.7320],
+          [-84.3400, 33.7320],
+          [-84.3400, 33.7440]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Pittsburgh",
+        "shortName": "Pittsburgh",
+        "character": "Historic African American neighborhood undergoing BeltLine-driven revitalization"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [-84.4020, 33.7420],
+          [-84.3900, 33.7420],
+          [-84.3900, 33.7320],
+          [-84.4020, 33.7320],
+          [-84.4020, 33.7420]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Mechanicsville",
+        "shortName": "Mechanicsville",
+        "character": "One of Atlanta's oldest neighborhoods with ongoing community investment"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [-84.4020, 33.7320],
+          [-84.3900, 33.7320],
+          [-84.3900, 33.7220],
+          [-84.4020, 33.7220],
+          [-84.4020, 33.7320]
+        ]]
+      }
+    }
+  ]
+}

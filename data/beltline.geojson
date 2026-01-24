@@ -1,0 +1,147 @@
+{
+  "type": "FeatureCollection",
+  "name": "Atlanta BeltLine",
+  "source": "Derived from Atlanta BeltLine Inc. official alignment",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "BeltLine Eastside Trail",
+        "segment": "Piedmont Park to Krog Street",
+        "status": "Complete",
+        "length_miles": 2.25,
+        "description": "The most popular BeltLine segment, connecting Piedmont Park through Ponce City Market to Inman Park"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [-84.3685, 33.7878],
+          [-84.3680, 33.7865],
+          [-84.3678, 33.7850],
+          [-84.3675, 33.7835],
+          [-84.3670, 33.7820],
+          [-84.3665, 33.7800],
+          [-84.3658, 33.7780],
+          [-84.3655, 33.7760],
+          [-84.3654, 33.7740],
+          [-84.3654, 33.7726],
+          [-84.3652, 33.7710],
+          [-84.3648, 33.7695],
+          [-84.3645, 33.7680],
+          [-84.3640, 33.7665],
+          [-84.3635, 33.7650],
+          [-84.3632, 33.7635],
+          [-84.3632, 33.7620],
+          [-84.3632, 33.7605],
+          [-84.3632, 33.7590]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "BeltLine Eastside Trail South",
+        "segment": "Krog Street to Glenwood",
+        "status": "Complete",
+        "length_miles": 1.5,
+        "description": "Southern extension through Reynoldstown connecting to Glenwood Park"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [-84.3632, 33.7590],
+          [-84.3625, 33.7575],
+          [-84.3618, 33.7560],
+          [-84.3612, 33.7545],
+          [-84.3605, 33.7530],
+          [-84.3598, 33.7515],
+          [-84.3592, 33.7500],
+          [-84.3585, 33.7485],
+          [-84.3578, 33.7470],
+          [-84.3572, 33.7455],
+          [-84.3565, 33.7440]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "BeltLine Southside Trail",
+        "segment": "Glenwood to Grant Park",
+        "status": "Complete",
+        "length_miles": 1.75,
+        "description": "Connecting the Eastside to Boulevard Crossing and Grant Park neighborhoods"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [-84.3565, 33.7440],
+          [-84.3572, 33.7428],
+          [-84.3580, 33.7415],
+          [-84.3590, 33.7405],
+          [-84.3605, 33.7395],
+          [-84.3620, 33.7388],
+          [-84.3640, 33.7382],
+          [-84.3660, 33.7378],
+          [-84.3680, 33.7375],
+          [-84.3700, 33.7372],
+          [-84.3720, 33.7370]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "BeltLine Westside Trail",
+        "segment": "Washington Park to Adair Park",
+        "status": "Complete",
+        "length_miles": 2.4,
+        "description": "Western segment through historic westside neighborhoods"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [-84.4125, 33.7620],
+          [-84.4120, 33.7600],
+          [-84.4115, 33.7580],
+          [-84.4108, 33.7560],
+          [-84.4100, 33.7540],
+          [-84.4095, 33.7520],
+          [-84.4090, 33.7500],
+          [-84.4082, 33.7480],
+          [-84.4075, 33.7460],
+          [-84.4068, 33.7440],
+          [-84.4060, 33.7420],
+          [-84.4052, 33.7400],
+          [-84.4045, 33.7380],
+          [-84.4038, 33.7360]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "BeltLine Northside Trail",
+        "segment": "Tanyard Creek to Piedmont Park",
+        "status": "Complete",
+        "length_miles": 1.2,
+        "description": "Northern connection through Ansley Park to Piedmont Park"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [-84.3950, 33.7920],
+          [-84.3920, 33.7915],
+          [-84.3890, 33.7908],
+          [-84.3860, 33.7902],
+          [-84.3830, 33.7898],
+          [-84.3800, 33.7895],
+          [-84.3770, 33.7892],
+          [-84.3740, 33.7888],
+          [-84.3710, 33.7882],
+          [-84.3685, 33.7878]
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "name": "atlanta-neighborhoods-map",
+  "version": "1.0.0",
+  "description": "Interactive and print-ready map of Atlanta neighborhoods",
+  "author": "",
+  "license": "ISC",
+  "scripts": {
+    "serve": "npx serve . -p 8000",
+    "generate-print": "node scripts/generate-print.js",
+    "validate": "node scripts/validate-data.js"
+  },
+  "devDependencies": {
+    "puppeteer": "^21.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "keywords": [
+    "atlanta",
+    "map",
+    "leaflet",
+    "geojson",
+    "neighborhoods",
+    "beltline"
+  ]
+}

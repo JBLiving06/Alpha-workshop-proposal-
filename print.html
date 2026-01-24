@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atlanta Neighborhoods | Print Version</title>
+
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+          integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+          crossorigin="" />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@300;400;500;700&family=Quicksand:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* Print-optimized styles for 24x36 inch landscape poster */
+        :root {
+            --color-background: rgb(245, 245, 245);
+            --color-old-gold: #B08A00;
+            --color-haint-blue: #A4CCE3;
+            --color-street-grey: #666666;
+            --font-primary: 'Montserrat Alternates', 'Quicksand', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background: var(--color-background);
+        }
+
+        /* Print container - 24x36 inches landscape at 300dpi = 10800x7200 pixels */
+        /* We'll work at 1/3 scale for browser rendering: 3600x2400 pixels */
+        #print-container {
+            position: relative;
+            width: 3600px;
+            height: 2400px;
+            background: var(--color-background);
+            margin: 0 auto;
+        }
+
+        /* Title block */
+        #title-block {
+            position: absolute;
+            top: 60px;
+            left: 80px;
+            z-index: 1000;
+        }
+
+        #title-block h1 {
+            font-family: var(--font-primary);
+            font-size: 72px;
+            font-weight: 700;
+            letter-spacing: 4px;
+            color: #333;
+            margin: 0;
+        }
+
+        #title-block .subtitle {
+            font-family: var(--font-primary);
+            font-size: 24px;
+            font-weight: 300;
+            color: #666;
+            letter-spacing: 2px;
+            margin-top: 8px;
+        }
+
+        /* Map area */
+        #map {
+            position: absolute;
+            top: 180px;
+            left: 80px;
+            right: 80px;
+            bottom: 180px;
+            background: var(--color-background);
+            border: 2px solid #ccc;
+        }
+
+        /* Legend */
+        #legend {
+            position: absolute;
+            bottom: 50px;
+            left: 80px;
+            width: 400px;
+            height: 250px;
+            background: white;
+            border: 1px solid #ccc;
+            padding: 30px;
+            font-family: var(--font-primary);
+        }
+
+        #legend h3 {
+            font-size: 18px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 12px;
+            font-size: 16px;
+        }
+
+        .legend-symbol {
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .legend-star {
+            color: var(--color-old-gold);
+            font-size: 28px;
+        }
+
+        .legend-line {
+            width: 30px;
+            height: 4px;
+            background: var(--color-old-gold);
+            border-radius: 2px;
+        }
+
+        .legend-swatch {
+            width: 30px;
+            height: 20px;
+            border-radius: 3px;
+            border: 1px solid #888;
+        }
+
+        .legend-swatch.park {
+            background: var(--color-haint-blue);
+            opacity: 0.6;
+        }
+
+        .legend-dot {
+            width: 12px;
+            height: 12px;
+            background: #C75B5B;
+            border: 2px solid white;
+            border-radius: 50%;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+        }
+
+        /* North arrow */
+        #north-arrow {
+            position: absolute;
+            bottom: 50px;
+            left: 500px;
+            width: 100px;
+            height: 120px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #north-arrow svg {
+            width: 60px;
+            height: 80px;
+        }
+
+        #north-arrow span {
+            font-family: var(--font-primary);
+            font-size: 24px;
+            font-weight: 700;
+            color: #333;
+            margin-top: 5px;
+        }
+
+        /* Scale bar placeholder */
+        #scale-bar {
+            position: absolute;
+            bottom: 80px;
+            right: 80px;
+            font-family: var(--font-primary);
+            font-size: 14px;
+            color: #666;
+        }
+
+        #scale-bar .bar {
+            width: 200px;
+            height: 8px;
+            background: linear-gradient(to right, #333 50%, white 50%);
+            border: 1px solid #333;
+            margin-bottom: 5px;
+        }
+
+        /* Attribution */
+        #attribution {
+            position: absolute;
+            bottom: 50px;
+            right: 80px;
+            font-family: var(--font-primary);
+            font-size: 12px;
+            color: #888;
+            text-align: right;
+        }
+
+        /* Neighborhood labels for print */
+        .neighborhood-label-print {
+            font-family: var(--font-primary) !important;
+            font-weight: 700 !important;
+            font-size: 28px !important;
+            letter-spacing: 3px !important;
+            text-transform: uppercase !important;
+            color: rgba(60, 60, 60, 0.35) !important;
+            text-shadow: none !important;
+            white-space: nowrap !important;
+            pointer-events: none !important;
+        }
+
+        /* Landmark labels for print */
+        .landmark-label-print {
+            font-family: var(--font-primary) !important;
+            font-size: 14px !important;
+            font-weight: 400 !important;
+            color: #333 !important;
+            white-space: nowrap !important;
+            background: rgba(255,255,255,0.85) !important;
+            padding: 2px 6px !important;
+            border-radius: 3px !important;
+        }
+
+        /* Hide Leaflet controls in print */
+        .leaflet-control-zoom,
+        .leaflet-control-attribution {
+            display: none !important;
+        }
+
+        /* Status message */
+        #status {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 25px;
+            background: #333;
+            color: white;
+            font-family: var(--font-primary);
+            font-size: 14px;
+            border-radius: 8px;
+            z-index: 10000;
+        }
+
+        #status.hidden {
+            display: none;
+        }
+
+        /* Print instructions */
+        #instructions {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            max-width: 400px;
+            padding: 20px;
+            background: white;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-family: var(--font-primary);
+            font-size: 13px;
+            z-index: 10000;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        #instructions h4 {
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+
+        #instructions ol {
+            margin-left: 20px;
+            line-height: 1.6;
+        }
+
+        #instructions .close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: none;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            color: #666;
+        }
+
+        @media print {
+            #status, #instructions {
+                display: none !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="print-container">
+        <!-- Title Block -->
+        <div id="title-block">
+            <h1>ATLANTA NEIGHBORHOODS</h1>
+            <p class="subtitle">An Orientation Map for Our Family</p>
+        </div>
+
+        <!-- Map -->
+        <div id="map"></div>
+
+        <!-- Legend -->
+        <div id="legend">
+            <h3>Legend</h3>
+            <div class="legend-item">
+                <span class="legend-symbol legend-star">★</span>
+                <span>Home (640 Irwin St NE)</span>
+            </div>
+            <div class="legend-item">
+                <span class="legend-line"></span>
+                <span>Atlanta BeltLine</span>
+            </div>
+            <div class="legend-item">
+                <span class="legend-swatch park"></span>
+                <span>Parks & Greenspace</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-symbol"><div class="legend-dot"></div></div>
+                <span>Cultural Landmark</span>
+            </div>
+        </div>
+
+        <!-- North Arrow -->
+        <div id="north-arrow">
+            <svg viewBox="0 0 40 50">
+                <polygon points="20,0 30,40 20,32 10,40" fill="#333" stroke="#111" stroke-width="1"/>
+            </svg>
+            <span>N</span>
+        </div>
+
+        <!-- Scale Bar -->
+        <div id="scale-bar">
+            <div class="bar"></div>
+            <span>0.5 miles (1 inch ≈ 0.23 miles at full scale)</span>
+        </div>
+
+        <!-- Attribution -->
+        <div id="attribution">
+            Map data © OpenStreetMap contributors<br>
+            BeltLine alignment derived from Atlanta BeltLine Inc.<br>
+            Created 2026
+        </div>
+    </div>
+
+    <div id="status">Loading map data...</div>
+
+    <div id="instructions">
+        <button class="close" onclick="this.parentElement.style.display='none'">&times;</button>
+        <h4>Print Export Instructions</h4>
+        <ol>
+            <li>Wait for map to fully load</li>
+            <li>Use browser's "Print" (Cmd/Ctrl+P)</li>
+            <li>Select "Save as PDF"</li>
+            <li>Set paper size to "Tabloid" or custom 24×36"</li>
+            <li>Set orientation to "Landscape"</li>
+            <li>Enable "Background graphics"</li>
+            <li>For high-res: Use screenshot tool at 3x zoom, then scale in Photoshop/GIMP</li>
+        </ol>
+    </div>
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+            integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+            crossorigin=""></script>
+
+    <!-- Configuration -->
+    <script src="js/config.js"></script>
+
+    <script>
+        (function() {
+            'use strict';
+
+            const state = {
+                map: null,
+                layers: {}
+            };
+
+            // Fetch GeoJSON
+            async function fetchGeoJSON(url) {
+                const response = await fetch(url);
+                if (!response.ok) throw new Error(`Failed to load ${url}`);
+                return response.json();
+            }
+
+            // Create star icon for home
+            function createStarIcon(color, size) {
+                const svg = `
+                    <svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="${color}" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"
+                              stroke="#704D00" stroke-width="0.5" stroke-linejoin="round"/>
+                    </svg>
+                `;
+                return L.divIcon({
+                    html: svg,
+                    className: 'home-marker',
+                    iconSize: [size, size],
+                    iconAnchor: [size / 2, size / 2]
+                });
+            }
+
+            // Create landmark marker
+            function createLandmarkIcon() {
+                return L.divIcon({
+                    html: '<div style="width:14px;height:14px;background:#C75B5B;border:2px solid white;border-radius:50%;box-shadow:0 2px 4px rgba(0,0,0,0.3);"></div>',
+                    className: 'landmark-marker',
+                    iconSize: [18, 18],
+                    iconAnchor: [9, 9]
+                });
+            }
+
+            // Get polygon center
+            function getPolygonCenter(coords) {
+                let latSum = 0, lngSum = 0;
+                coords.forEach(coord => {
+                    lngSum += coord[0];
+                    latSum += coord[1];
+                });
+                return [latSum / coords.length, lngSum / coords.length];
+            }
+
+            // Initialize print map
+            async function init() {
+                const status = document.getElementById('status');
+
+                // Create map with fixed bounds for print
+                const bounds = MapConfig.map.bounds;
+                state.map = L.map('map', {
+                    center: [33.757, -84.365],
+                    zoom: 13,
+                    zoomControl: false,
+                    attributionControl: false,
+                    dragging: false,
+                    scrollWheelZoom: false,
+                    doubleClickZoom: false,
+                    touchZoom: false
+                });
+
+                // Fit to bounds
+                state.map.fitBounds([
+                    [bounds.south, bounds.west],
+                    [bounds.north, bounds.east]
+                ], { padding: [20, 20] });
+
+                // Add tiles (CartoDB for cleaner print)
+                L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+                    maxZoom: 19
+                }).addTo(state.map);
+
+                status.textContent = 'Loading neighborhood data...';
+
+                try {
+                    // Load all data
+                    const [neighborhoods, parks, beltline, landmarks, home] = await Promise.all([
+                        fetchGeoJSON('data/neighborhoods.geojson'),
+                        fetchGeoJSON('data/parks.geojson'),
+                        fetchGeoJSON('data/beltline.geojson'),
+                        fetchGeoJSON('data/landmarks.geojson'),
+                        fetchGeoJSON('data/home.geojson')
+                    ]);
+
+                    status.textContent = 'Rendering layers...';
+
+                    // Add neighborhoods
+                    L.geoJSON(neighborhoods, {
+                        style: {
+                            color: '#666',
+                            weight: 2,
+                            opacity: 0.6,
+                            fillColor: '#888',
+                            fillOpacity: 0.08
+                        }
+                    }).addTo(state.map);
+
+                    // Add neighborhood labels
+                    neighborhoods.features.forEach(feature => {
+                        if (feature.geometry.type === 'Polygon') {
+                            const center = getPolygonCenter(feature.geometry.coordinates[0]);
+                            L.marker(center, {
+                                icon: L.divIcon({
+                                    className: 'neighborhood-label-print',
+                                    html: feature.properties.shortName || feature.properties.name,
+                                    iconSize: [200, 40],
+                                    iconAnchor: [100, 20]
+                                }),
+                                interactive: false
+                            }).addTo(state.map);
+                        }
+                    });
+
+                    // Add parks
+                    L.geoJSON(parks, {
+                        style: {
+                            color: '#888',
+                            weight: 1,
+                            opacity: 0.6,
+                            fillColor: '#A4CCE3',
+                            fillOpacity: 0.4
+                        }
+                    }).addTo(state.map);
+
+                    // Add BeltLine
+                    L.geoJSON(beltline, {
+                        style: {
+                            color: '#B08A00',
+                            weight: 6,
+                            opacity: 1,
+                            lineCap: 'round',
+                            lineJoin: 'round'
+                        }
+                    }).addTo(state.map);
+
+                    // Add landmarks with labels
+                    landmarks.features.forEach(feature => {
+                        const coords = feature.geometry.coordinates;
+                        const latlng = [coords[1], coords[0]];
+
+                        // Marker
+                        L.marker(latlng, {
+                            icon: createLandmarkIcon()
+                        }).addTo(state.map);
+
+                        // Label
+                        L.marker(latlng, {
+                            icon: L.divIcon({
+                                className: 'landmark-label-print',
+                                html: feature.properties.shortName || feature.properties.name,
+                                iconSize: [150, 20],
+                                iconAnchor: [-12, 10]
+                            }),
+                            interactive: false
+                        }).addTo(state.map);
+                    });
+
+                    // Add home marker
+                    const homeCoords = home.features[0].geometry.coordinates;
+                    L.marker([homeCoords[1], homeCoords[0]], {
+                        icon: createStarIcon('#B08A00', 48),
+                        zIndexOffset: 1000
+                    }).addTo(state.map);
+
+                    status.textContent = 'Map ready for export!';
+                    setTimeout(() => {
+                        status.classList.add('hidden');
+                    }, 2000);
+
+                } catch (error) {
+                    console.error('Error:', error);
+                    status.textContent = 'Error: ' + error.message;
+                    status.style.background = '#c00';
+                }
+            }
+
+            // Initialize when DOM ready
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', init);
+            } else {
+                init();
+            }
+        })();
+    </script>
+</body>
+</html>

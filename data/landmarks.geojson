@@ -1,0 +1,201 @@
+{
+  "type": "FeatureCollection",
+  "name": "Atlanta Cultural Landmarks",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Martin Luther King Jr. Center",
+        "shortName": "King Center",
+        "category": "Civil Rights",
+        "description": "The official memorial dedicated to the life and legacy of Dr. Martin Luther King Jr. Contains his tomb and the Eternal Flame.",
+        "address": "449 Auburn Ave NE, Atlanta, GA 30312",
+        "yearEstablished": 1968
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-84.37295, 33.75505]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Martin Luther King Jr. Birth Home",
+        "shortName": "MLK Birth Home",
+        "category": "Civil Rights",
+        "description": "The childhood home of Dr. Martin Luther King Jr., a National Historic Site where he was born on January 15, 1929.",
+        "address": "501 Auburn Ave NE, Atlanta, GA 30312",
+        "yearEstablished": 1929
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-84.37030, 33.75535]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Ebenezer Baptist Church",
+        "shortName": "Ebenezer Baptist",
+        "category": "Civil Rights",
+        "description": "Historic church where Dr. King was baptized and later served as co-pastor with his father. A cornerstone of the Civil Rights Movement.",
+        "address": "101 Jackson St NE, Atlanta, GA 30312",
+        "yearEstablished": 1886
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-84.37165, 33.75485]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Ponce City Market",
+        "shortName": "Ponce City Market",
+        "category": "Food & Retail",
+        "description": "Historic Sears building transformed into a mixed-use development featuring local restaurants, shops, and a rooftop amusement park.",
+        "address": "675 Ponce De Leon Ave NE, Atlanta, GA 30308",
+        "yearEstablished": 2014
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-84.36540, 33.77260]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Krog Street Market",
+        "shortName": "Krog Street Market",
+        "category": "Food & Retail",
+        "description": "Restored 1920s warehouse now housing artisanal food vendors, restaurants, and local retailers along the BeltLine.",
+        "address": "99 Krog St NE, Atlanta, GA 30307",
+        "yearEstablished": 2014
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-84.36315, 33.75865]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Dad's Garage Theatre",
+        "shortName": "Dad's Garage",
+        "category": "Arts & Culture",
+        "description": "Award-winning improv and theatre company known for irreverent comedy and community engagement since 1995.",
+        "address": "569 Ezzard St SE, Atlanta, GA 30312",
+        "yearEstablished": 1995
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-84.34630, 33.75295]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Fox Theatre",
+        "shortName": "Fox Theatre",
+        "category": "Arts & Culture",
+        "description": "Iconic 1929 Moorish-Egyptian revival movie palace, now a premier performing arts venue and Atlanta landmark.",
+        "address": "660 Peachtree St NE, Atlanta, GA 30308",
+        "yearEstablished": 1929
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-84.38565, 33.77265]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "High Museum of Art",
+        "shortName": "High Museum",
+        "category": "Arts & Culture",
+        "description": "The leading art museum in the Southeast, featuring renowned collections and Richard Meier's iconic white architecture.",
+        "address": "1280 Peachtree St NE, Atlanta, GA 30309",
+        "yearEstablished": 1905
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-84.38540, 33.79025]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Zoo Atlanta",
+        "shortName": "Zoo Atlanta",
+        "category": "Parks & Recreation",
+        "description": "One of the oldest zoos in the U.S., home to giant pandas and located in historic Grant Park since 1889.",
+        "address": "800 Cherokee Ave SE, Atlanta, GA 30315",
+        "yearEstablished": 1889
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-84.37015, 33.73275]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Your DeKalb Farmers Market",
+        "shortName": "YDFM",
+        "category": "Food & Retail",
+        "description": "World-famous international farmers market featuring global cuisines, fresh produce, and cultural diversity since 1977.",
+        "address": "3000 E Ponce de Leon Ave, Decatur, GA 30030",
+        "yearEstablished": 1977
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-84.28760, 33.77425]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "East Lake Golf Club",
+        "shortName": "East Lake Golf Club",
+        "category": "Parks & Recreation",
+        "description": "Historic golf club, home course of Bobby Jones, and host of the PGA Tour Championship. Symbol of community revitalization.",
+        "address": "2575 Alston Dr SE, Atlanta, GA 30317",
+        "yearEstablished": 1904
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-84.31015, 33.74965]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Morehouse College",
+        "shortName": "Morehouse College",
+        "category": "Education",
+        "description": "Prestigious HBCU and alma mater of Dr. Martin Luther King Jr., producing leaders for over 150 years.",
+        "address": "830 Westview Dr SW, Atlanta, GA 30314",
+        "yearEstablished": 1867
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-84.41275, 33.74720]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Spelman College",
+        "shortName": "Spelman College",
+        "category": "Education",
+        "description": "The nation's leading HBCU for women, consistently ranked among the best liberal arts colleges in America.",
+        "address": "350 Spelman Ln SW, Atlanta, GA 30314",
+        "yearEstablished": 1881
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-84.41135, 33.74510]
+      }
+    }
+  ]
+}

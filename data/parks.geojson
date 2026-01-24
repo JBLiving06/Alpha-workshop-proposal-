@@ -1,0 +1,313 @@
+{
+  "type": "FeatureCollection",
+  "name": "Atlanta Parks and Greenspace",
+  "source": "Derived from City of Atlanta Parks and Recreation Department",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Piedmont Park",
+        "type": "Urban Park",
+        "acres": 200,
+        "description": "Atlanta's beloved gathering place with meadows, trails, playgrounds, and lake"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [-84.3790, 33.7935],
+          [-84.3680, 33.7935],
+          [-84.3680, 33.7850],
+          [-84.3720, 33.7850],
+          [-84.3720, 33.7810],
+          [-84.3790, 33.7810],
+          [-84.3790, 33.7935]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Grant Park",
+        "type": "Urban Park",
+        "acres": 131,
+        "description": "Atlanta's oldest city park, home to Zoo Atlanta and historic Victorian neighborhoods"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [-84.3755, 33.7420],
+          [-84.3630, 33.7420],
+          [-84.3630, 33.7320],
+          [-84.3755, 33.7320],
+          [-84.3755, 33.7420]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Oakland Cemetery",
+        "type": "Historic Cemetery/Park",
+        "acres": 88,
+        "description": "Historic Victorian garden cemetery (1850), final resting place of notable Atlantans"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [-84.3740, 33.7515],
+          [-84.3650, 33.7515],
+          [-84.3650, 33.7460],
+          [-84.3740, 33.7460],
+          [-84.3740, 33.7515]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Freedom Park",
+        "type": "Linear Park",
+        "acres": 200,
+        "description": "Linear park connecting Carter Presidential Center to Ponce de Leon corridor"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [-84.3640, 33.7685],
+          [-84.3480, 33.7685],
+          [-84.3480, 33.7665],
+          [-84.3640, 33.7665],
+          [-84.3640, 33.7685]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Candler Park",
+        "type": "Neighborhood Park",
+        "acres": 55,
+        "description": "Community park with golf course, pool, and playgrounds"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [-84.3420, 33.7680],
+          [-84.3340, 33.7680],
+          [-84.3340, 33.7620],
+          [-84.3420, 33.7620],
+          [-84.3420, 33.7680]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Springvale Park",
+        "type": "Neighborhood Park",
+        "acres": 12,
+        "description": "Quiet neighborhood green space in Poncey-Highland"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [-84.3620, 33.7720],
+          [-84.3590, 33.7720],
+          [-84.3590, 33.7700],
+          [-84.3620, 33.7700],
+          [-84.3620, 33.7720]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Historic Fourth Ward Park",
+        "type": "Urban Park",
+        "acres": 17,
+        "description": "Award-winning park along the BeltLine with stormwater pond and skate park"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [-84.3680, 33.7720],
+          [-84.3640, 33.7720],
+          [-84.3640, 33.7680],
+          [-84.3680, 33.7680],
+          [-84.3680, 33.7720]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Inman Park",
+        "type": "Neighborhood Park",
+        "acres": 5,
+        "description": "Small historic park in the heart of Inman Park neighborhood"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [-84.3555, 33.7615],
+          [-84.3530, 33.7615],
+          [-84.3530, 33.7595],
+          [-84.3555, 33.7595],
+          [-84.3555, 33.7615]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "East Lake Park",
+        "type": "Neighborhood Park",
+        "acres": 25,
+        "description": "Community park with Charlie Yates Golf Course"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [-84.3130, 33.7590],
+          [-84.3050, 33.7590],
+          [-84.3050, 33.7520],
+          [-84.3130, 33.7520],
+          [-84.3130, 33.7590]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Brownwood Park",
+        "type": "Neighborhood Park",
+        "acres": 15,
+        "description": "Community park serving Ormewood Park neighborhood"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [-84.3480, 33.7380],
+          [-84.3430, 33.7380],
+          [-84.3430, 33.7340],
+          [-84.3480, 33.7340],
+          [-84.3480, 33.7380]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "King Historic District",
+        "type": "National Historic Site",
+        "acres": 35,
+        "description": "National Historical Park preserving Dr. King's birth home, church, and gravesite"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [-84.3750, 33.7575],
+          [-84.3680, 33.7575],
+          [-84.3680, 33.7535],
+          [-84.3750, 33.7535],
+          [-84.3750, 33.7575]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Woodruff Park",
+        "type": "Urban Plaza",
+        "acres": 6,
+        "description": "Downtown gathering space with fountains and public art"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [-84.3890, 33.7565],
+          [-84.3860, 33.7565],
+          [-84.3860, 33.7545],
+          [-84.3890, 33.7545],
+          [-84.3890, 33.7565]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Washington Park",
+        "type": "Neighborhood Park",
+        "acres": 28,
+        "description": "Historic westside park with sports facilities and swimming pool"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [-84.4180, 33.7565],
+          [-84.4120, 33.7565],
+          [-84.4120, 33.7510],
+          [-84.4180, 33.7510],
+          [-84.4180, 33.7565]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Carter Presidential Center Grounds",
+        "type": "Historic Site",
+        "acres": 35,
+        "description": "Presidential library grounds with gardens and Japanese bridge"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [-84.3580, 33.7695],
+          [-84.3520, 33.7695],
+          [-84.3520, 33.7660],
+          [-84.3580, 33.7660],
+          [-84.3580, 33.7695]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Boulevard Crossing Park",
+        "type": "Urban Park",
+        "acres": 8,
+        "description": "New BeltLine park with playground and community spaces"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [-84.3660, 33.7400],
+          [-84.3620, 33.7400],
+          [-84.3620, 33.7370],
+          [-84.3660, 33.7370],
+          [-84.3660, 33.7400]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "D.H. Stanton Park",
+        "type": "Neighborhood Park",
+        "acres": 14,
+        "description": "Grant Park neighborhood park with sports facilities"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [-84.3760, 33.7320],
+          [-84.3720, 33.7320],
+          [-84.3720, 33.7280],
+          [-84.3760, 33.7280],
+          [-84.3760, 33.7320]
+        ]]
+      }
+    }
+  ]
+}

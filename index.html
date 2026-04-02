@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Alpha Phi Alpha · AI for Service · Eta Zeta Lambda</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Josefin+Sans:wght@100;200;300;400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #C9A84C;
+    --gold-light: #E8C96D;
+    --gold-dim: rgba(201,168,76,0.15);
+    --black: #080808;
+    --ink: #0D0D0D;
+    --white: #F5F2EC;
+    --gray: rgba(245,242,236,0.5);
+    --gray-dim: rgba(245,242,236,0.25);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--black); color: var(--white); font-family: 'Josefin Sans', sans-serif; font-weight: 300; letter-spacing: 0.05em; overflow-x: hidden; }
+  #entry { position: fixed; inset: 0; z-index: 1000; display: flex; flex-direction: column; align-items: center; justify-content: center; background: var(--black); transition: opacity 0.8s ease, visibility 0.8s; }
+  #entry.hidden { opacity: 0; visibility: hidden; }
+  #entry-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.22; filter: saturate(0.4) brightness(0.7); }
+  .entry-overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(8,8,8,0.3) 0%, rgba(8,8,8,0.55) 60%, rgba(8,8,8,0.95) 100%); }
+  .entry-content { position: relative; z-index: 2; text-align: center; max-width: 560px; padding: 2rem; }
+  .greek-seal { width: 72px; height: 72px; border: 1px solid var(--gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 2rem; background: rgba(0,0,0,0.6); backdrop-filter: blur(8px); }
+  .greek-seal span { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; color: var(--gold); font-weight: 600; letter-spacing: 0.05em; }
+  .entry-eyebrow { font-size: 0.65rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; }
+  .entry-headline { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.8rem, 5vw, 2.6rem); font-weight: 300; line-height: 1.2; color: var(--white); margin-bottom: 0.4rem; }
+  .entry-sub { font-size: 0.7rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gray); margin-bottom: 2.5rem; }
+  .entry-prompt { font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gray); margin-bottom: 1rem; }
+  .entry-buttons { display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap; }
+  .entry-btn { background: transparent; border: 1px solid rgba(201,168,76,0.4); color: var(--white); font-family: 'Josefin Sans', sans-serif; font-weight: 200; font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase; padding: 0.7rem 1.4rem; cursor: pointer; transition: all 0.3s ease; }
+  .entry-btn:hover, .entry-btn.active { background: var(--gold-dim); border-color: var(--gold); color: var(--gold-light); }
+  .enter-cta { margin-top: 2rem; background: transparent; border: 1px solid var(--gold); color: var(--gold-light); font-family: 'Josefin Sans', sans-serif; font-weight: 200; font-size: 0.65rem; letter-spacing: 0.35em; text-transform: uppercase; padding: 0.9rem 2.5rem; cursor: pointer; transition: all 0.4s ease; display: none; }
+  .enter-cta:hover { background: rgba(201,168,76,0.1); letter-spacing: 0.5em; }
+  .enter-cta.visible { display: block; }
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 1.2rem 3rem; display: flex; align-items: center; justify-content: space-between; background: linear-gradient(to bottom, rgba(8,8,8,0.9), transparent); pointer-events: none; }
+  .nav-mark { font-family: 'Cormorant Garamond', serif; font-size: 0.9rem; color: var(--gold); letter-spacing: 0.15em; }
+  .nav-dots { display: flex; gap: 0.5rem; pointer-events: all; }
+  .nav-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--gray-dim); cursor: pointer; transition: all 0.3s ease; border: none; }
+  .nav-dot.active { background: var(--gold); transform: scale(1.4); }
+  section { min-height: 100vh; display: flex; align-items: center; position: relative; overflow: hidden; }
+  .section-inner { max-width: 900px; margin: 0 auto; padding: 8rem 3rem 6rem; width: 100%; }
+  .section-label { font-size: 0.6rem; letter-spacing: 0.4em; text-transform: uppercase; color: var(--gold); margin-bottom: 2rem; display: flex; align-items: center; gap: 1rem; }
+  .section-label::before { content: ''; width: 30px; height: 1px; background: var(--gold); }
+  h2 { font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem, 5vw, 3.2rem); font-weight: 300; line-height: 1.15; margin-bottom: 1.5rem; }
+  h2 em { font-style: italic; color: var(--gold-light); }
+  p { font-size: 0.85rem; line-height: 1.9; color: var(--gray); max-width: 640px; margin-bottom: 1.2rem; }
+  .gold-rule { width: 60px; height: 1px; background: var(--gold); margin: 2.5rem 0; }
+  #moment { background: var(--black); }
+  .pull-quote { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.3rem, 3vw, 1.9rem); font-style: italic; font-weight: 300; line-height: 1.5; color: var(--white); border-left: 1px solid var(--gold); padding-left: 2rem; margin: 2.5rem 0; max-width: 600px; }
+  #proof { background: #080A08; }
+  .proof-bg { position: absolute; inset: 0; }
+  .proof-bg img { width: 100%; height: 100%; object-fit: cover; opacity: 0.12; filter: saturate(0.3); }
+  .proof-bg::after { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(8,8,8,0.97) 40%, rgba(8,10,8,0.85) 100%); }
+  .data-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1px; background: rgba(201,168,76,0.12); margin: 2.5rem 0; }
+  .data-cell { background: var(--black); padding: 2rem 1.5rem; position: relative; }
+  .data-cell::before { content: ''; position: absolute; top: 0; left: 0; width: 2px; height: 0; background: var(--gold); transition: height 0.8s ease; }
+  .data-cell.visible::before { height: 100%; }
+  .data-number { font-family: 'Cormorant Garamond', serif; font-size: 2.8rem; font-weight: 300; color: var(--gold-light); line-height: 1; margin-bottom: 0.4rem; }
+  .data-label { font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gray); line-height: 1.5; }
+  .data-district { font-size: 0.55rem; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(201,168,76,0.5); margin-top: 0.4rem; }
+  #proposal { background: #050505; }
+  .workshop-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1px; background: rgba(201,168,76,0.08); margin: 2.5rem 0; }
+  .workshop-card { background: #080808; padding: 2rem; position: relative; overflow: hidden; transition: background 0.4s ease; }
+  .workshop-card:hover { background: #0D0D0D; }
+  .workshop-card::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 1px; background: linear-gradient(to right, transparent, var(--gold), transparent); opacity: 0; transition: opacity 0.4s ease; }
+  .workshop-card:hover::after { opacity: 1; }
+  .card-num { font-family: 'Cormorant Garamond', serif; font-size: 3rem; font-weight: 300; color: rgba(201,168,76,0.15); line-height: 1; margin-bottom: 0.5rem; }
+  .card-title { font-family: 'Josefin Sans', sans-serif; font-size: 0.7rem; font-weight: 400; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold-light); margin-bottom: 0.75rem; }
+  .card-desc { font-size: 0.78rem; line-height: 1.75; color: var(--gray); margin: 0; }
+  #ask { background: var(--black); }
+  .ask-line { display: flex; align-items: baseline; gap: 1.5rem; padding: 1.2rem 0; border-bottom: 1px solid rgba(201,168,76,0.1); }
+  .ask-num { font-family: 'Cormorant Garamond', serif; font-size: 1rem; color: var(--gold); min-width: 1.5rem; }
+  .ask-text { font-size: 0.78rem; color: var(--gray); line-height: 1.7; margin: 0; }
+  #response { background: #050507; min-height: 80vh; }
+  .response-form { display: flex; flex-direction: column; gap: 1.5rem; max-width: 560px; margin-top: 2.5rem; }
+  .form-group label { font-size: 0.6rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); display: block; margin-bottom: 0.5rem; }
+  .form-group textarea, .form-group input { width: 100%; background: rgba(201,168,76,0.04); border: 1px solid rgba(201,168,76,0.2); color: var(--white); font-family: 'Josefin Sans', sans-serif; font-size: 0.78rem; font-weight: 200; letter-spacing: 0.05em; padding: 0.9rem 1rem; resize: none; outline: none; transition: border-color 0.3s ease; }
+  .form-group textarea:focus, .form-group input:focus { border-color: var(--gold); }
+  .vote-row { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+  .vote-btn { background: transparent; border: 1px solid rgba(201,168,76,0.25); color: var(--gray); font-family: 'Josefin Sans', sans-serif; font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase; padding: 0.6rem 1.2rem; cursor: pointer; transition: all 0.3s ease; }
+  .vote-btn:hover { border-color: var(--gold); color: var(--gold-light); }
+  .vote-btn.selected { background: var(--gold-dim); border-color: var(--gold); color: var(--gold-light); }
+  .submit-btn { background: transparent; border: 1px solid var(--gold); color: var(--gold-light); font-family: 'Josefin Sans', sans-serif; font-weight: 200; font-size: 0.65rem; letter-spacing: 0.35em; text-transform: uppercase; padding: 1rem 2rem; cursor: pointer; transition: all 0.4s ease; align-self: flex-start; }
+  .submit-btn:hover { background: var(--gold-dim); letter-spacing: 0.5em; }
+  .sent-state { display: none; font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-style: italic; color: var(--gold-light); margin-top: 2rem; }
+  .sent-state.visible { display: block; }
+  footer { padding: 3rem; text-align: center; border-top: 1px solid rgba(201,168,76,0.1); }
+  footer p { font-size: 0.6rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gray-dim); max-width: none; }
+  footer .motto { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 0.85rem; letter-spacing: 0.1em; color: rgba(201,168,76,0.4); margin-top: 0.75rem; text-transform: none; }
+  .fade-up { opacity: 0; transform: translateY(24px); transition: opacity 0.9s ease, transform 0.9s ease; }
+  .fade-up.visible { opacity: 1; transform: translateY(0); }
+  @keyframes pulse-gold { 0%, 100% { box-shadow: 0 0 0 0 rgba(201,168,76,0); } 50% { box-shadow: 0 0 20px 4px rgba(201,168,76,0.12); } }
+  .greek-seal { animation: pulse-gold 4s ease infinite; }
+  @media (max-width: 600px) { .section-inner { padding: 7rem 1.5rem 5rem; } nav { padding: 1rem 1.5rem; } .data-grid { grid-template-columns: 1fr 1fr; } .workshop-cards { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div id="entry">
+  <video id="entry-video" autoplay muted loop playsinline>
+    <source src="https://raw.githubusercontent.com/JBLiving06/Alpha-workshop-proposal-/main/westchester-aerial-golden-hour.mp4" type="video/mp4">
+  </video>
+  <div class="entry-overlay"></div>
+  <div class="entry-content">
+    <div class="greek-seal"><span>ΑΦΑ</span></div>
+    <p class="entry-eyebrow">Eta Zeta Lambda Chapter &nbsp;·&nbsp; Westchester County</p>
+    <h1 class="entry-headline">AI in Service<br>of Brotherhood</h1>
+    <p class="entry-sub">A Proposal from Brother Jeff Livingston</p>
+    <p class="entry-prompt">Please identify yourself, Brother</p>
+    <div class="entry-buttons">
+      <button class="entry-btn" onclick="selectBrother(this, 'Morris')">Brother Morris</button>
+      <button class="entry-btn" onclick="selectBrother(this, 'Parris')">Bro. President Parris</button>
+      <button class="entry-btn" onclick="selectBrother(this, 'Brother')">Chapter Leadership</button>
+    </div>
+    <button class="enter-cta" id="enter-cta" onclick="enterProposal()">Enter the Proposal →</button>
+  </div>
+</div>
+<nav>
+  <span class="nav-mark">ΑΦΑ · EZL</span>
+  <div class="nav-dots">
+    <button class="nav-dot active" onclick="scrollTo('#moment')" title="The Moment"></button>
+    <button class="nav-dot" onclick="scrollTo('#proof')" title="The Proof"></button>
+    <button class="nav-dot" onclick="scrollTo('#proposal')" title="The Proposal"></button>
+    <button class="nav-dot" onclick="scrollTo('#ask')" title="The Ask"></button>
+    <button class="nav-dot" onclick="scrollTo('#response')" title="Your Response"></button>
+  </div>
+</nav>
+<section id="moment">
+  <div class="section-inner">
+    <p class="section-label fade-up">The Moment</p>
+    <h2 class="fade-up">The world is changing.<br><em>We have been here before.</em></h2>
+    <div class="gold-rule fade-up"></div>
+    <p class="fade-up">In 1906, seven men at Cornell University looked at a world that was not designed for their success and decided to build something that was. Alpha Phi Alpha was born from that conviction — not as a response to the moment, but as an answer to it.</p>
+    <p class="fade-up">We are in that kind of moment again. Artificial intelligence is reshaping every sector — education, civic engagement, professional life, and community service. The question is not whether it will affect the communities we serve. It is whether our chapter will meet this moment with the same clarity of purpose that defined our founding.</p>
+    <blockquote class="pull-quote fade-up">"The brothers of Eta Zeta Lambda are educators, executives, lawyers, physicians, and engineers — men whose lifelong expertise is exactly what AI amplifies, never what it replaces."</blockquote>
+    <p class="fade-up">Brother Morris raised this opportunity. Brother President Parris connected it to our voter registration work. This proposal is a response to both of you — and to the chapter's long tradition of meeting consequential moments with action.</p>
+  </div>
+</section>
+<section id="proof">
+  <div class="proof-bg"><img src="https://raw.githubusercontent.com/JBLiving06/Alpha-workshop-proposal-/main/mount-vernon-hs-dusk.png" alt="Mount Vernon High School"></div>
+  <div class="section-inner" style="position:relative;z-index:2;">
+    <p class="section-label fade-up">The Proof</p>
+    <h2 class="fade-up">Westchester's students.<br><em>Our data. Our responsibility.</em></h2>
+    <div class="gold-rule fade-up"></div>
+    <p class="fade-up">Using AI tools alone, Brother Livingston conducted a comprehensive analysis of educational outcomes across Westchester County's school districts — the same communities our chapter has served for decades. The findings reveal both progress and persistent gaps.</p>
+    <div class="data-grid fade-up">
+      <div class="data-cell"><div class="data-number">79.9%</div><div class="data-label">Graduation Rate</div><div class="data-district">Mount Vernon · up from 61%</div></div>
+      <div class="data-cell"><div class="data-number">56%</div><div class="data-label">Proficiency Gap</div><div class="data-district">ELA scores vs state average</div></div>
+      <div class="data-cell"><div class="data-number">34%</div><div class="data-label">Free/Reduced Lunch</div><div class="data-district">Yonkers City School District</div></div>
+      <div class="data-cell"><div class="data-number">3,400+</div><div class="data-label">Contacts Mobilized</div><div class="data-district">via Nanci system for outreach</div></div>
+    </div>
+    <p class="fade-up">This analysis — produced in a single afternoon using AI — would have taken weeks of manual research. Imagine what our chapter could do with this capability applied to voter registration data, scholarship tracking, or civic engagement mapping.</p>
+  </div>
+</section>
+<section id="proposal">
+  <div class="section-inner">
+    <p class="section-label fade-up">The Proposal</p>
+    <h2 class="fade-up">A 90-minute workshop that<br><em>changes what brothers believe is possible.</em></h2>
+    <div class="gold-rule fade-up"></div>
+    <p class="fade-up">Not a lecture. Not a PowerPoint. Brothers watch functional tools built live, from natural language, in real time — then take those tools home and use them immediately.</p>
+    <div class="workshop-cards fade-up">
+      <div class="workshop-card"><div class="card-num">01</div><div class="card-title">Live Comparison</div><p class="card-desc">Three AI platforms run simultaneously on the same prompt. Brothers see the differences. The session begins with demonstration, not instruction.</p></div>
+      <div class="workshop-card"><div class="card-num">02</div><div class="card-title">Voteless People Tool</div><p class="card-desc">Brothers input any Westchester zip code and receive a complete picture of local offices, ballot issues, and why each race affects their neighborhood. Built live.</p></div>
+      <div class="workshop-card"><div class="card-num">03</div><div class="card-title">Chapter Flyer Builder</div><p class="card-desc">Upload prior chapter flyers, provide event details, and AI generates four design-ready options instantly. Brothers leave with a tool they will use next week.</p></div>
+      <div class="workshop-card"><div class="card-num">04</div><div class="card-title">Westchester Data Walk</div><p class="card-desc">An interactive county-wide education equity dashboard — live AI analysis of school district data refreshed in real time. Our chapter becomes the source of truth.</p></div>
+    </div>
+    <p class="fade-up">The session runs on Zoom. No accounts required. No software to install. Every tool works immediately in any browser — because if it requires setup, it will not be used.</p>
+  </div>
+</section>
+<section id="ask">
+  <div class="section-inner">
+    <p class="section-label fade-up">The Ask</p>
+    <h2 class="fade-up">Three things.<br><em>No budget required.</em></h2>
+    <div class="gold-rule fade-up"></div>
+    <div class="fade-up">
+      <div class="ask-line"><span class="ask-num">I</span><p class="ask-text"><strong style="color:var(--white);font-weight:400;">A date on the calendar.</strong> &nbsp;A 90-minute evening session in the next 60 days. Virtual means no venue, no travel, and brothers can join from anywhere in the county.</p></div>
+      <div class="ask-line"><span class="ask-num">II</span><p class="ask-text"><strong style="color:var(--white);font-weight:400;">Chapter endorsement.</strong> &nbsp;A message from Brother President signaling this is chapter business — not an optional side event. When leadership says it matters, brothers show up.</p></div>
+      <div class="ask-line"><span class="ask-num">III</span><p class="ask-text"><strong style="color:var(--white);font-weight:400;">The right to share this model.</strong> &nbsp;If the session lands, I would like to bring this framework to the regional association and position Eta Zeta Lambda as the chapter that led. Chapter of the year material.</p></div>
+    </div>
+    <div class="gold-rule fade-up"></div>
+    <p class="fade-up" style="color:var(--gray);">The session costs nothing. The tools cost nothing. What brothers walk away with is a capability that compounds — every time a brother uses AI for chapter service, the chapter gets better at serving.</p>
+  </div>
+</section>
+<section id="response">
+  <div class="section-inner">
+    <p class="section-label fade-up">Your Response</p>
+    <h2 class="fade-up">Brother, what do<br><em>you say?</em></h2>
+    <div class="gold-rule fade-up"></div>
+    <p class="fade-up">Your reaction here is for Brother Livingston. Respond directly — no formality required.</p>
+    <div class="response-form fade-up" id="response-form">
+      <div class="form-group"><label>Your initial reaction</label><div class="vote-row" id="vote-row"><button class="vote-btn" onclick="selectVote(this, 'Ready')">I'm ready to schedule</button><button class="vote-btn" onclick="selectVote(this, 'Questions')">I have questions first</button><button class="vote-btn" onclick="selectVote(this, 'Modify')">Let's modify the approach</button><button class="vote-btn" onclick="selectVote(this, 'Pass')">Not the right time</button></div></div>
+      <div class="form-group"><label>What would make this more useful to the chapter?</label><textarea rows="4" id="feedback-text" placeholder="Tools you'd want built. Concerns. Any reaction."></textarea></div>
+      <div class="form-group"><label>Best windows for scheduling (if moving forward)</label><input type="text" id="schedule-text" placeholder="e.g., February weeknights, March 15 weekend..."></div>
+      <button class="submit-btn" onclick="submitResponse()">Send to Brother Livingston →</button>
+    </div>
+    <div class="sent-state" id="sent-state">Thank you, Brother. Your response has been received.</div>
+  </div>
+</section>
+<footer>
+  <p>Eta Zeta Lambda Chapter &nbsp;·&nbsp; Alpha Phi Alpha Fraternity, Inc.</p>
+  <p>Westchester County, New York &nbsp;·&nbsp; Westchester Alphas Educational Foundation</p>
+  <p>Presented by Brother Jeff Livingston &nbsp;·&nbsp; EdSolutions Consultancy</p>
+  <p class="motto">"First of All, Servants of All, We Shall Transcend All"</p>
+</footer>
+<script>
+  let selectedBrother = null;
+  function selectBrother(btn, name) { document.querySelectorAll('.entry-btn').forEach(b => b.classList.remove('active')); btn.classList.add('active'); selectedBrother = name; document.getElementById('enter-cta').classList.add('visible'); }
+  function enterProposal() { document.getElementById('entry').classList.add('hidden'); document.body.style.overflow = 'auto'; if (selectedBrother && selectedBrother !== 'Brother') { document.querySelector('#ask h2').innerHTML = `Three things,<br><em>Brother ${selectedBrother}.</em>`; } setTimeout(() => { document.getElementById('entry').style.display = 'none'; triggerVisibleAnimations(); }, 900); }
+  function scrollTo(id) { document.querySelector(id).scrollIntoView({ behavior: 'smooth' }); }
+  function triggerVisibleAnimations() { const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('visible'); } }); }, { threshold: 0.12 }); document.querySelectorAll('.fade-up').forEach(el => observer.observe(el)); document.querySelectorAll('.data-cell').forEach(el => observer.observe(el)); }
+  const sections = ['moment','proof','proposal','ask','response'];
+  const dots = document.querySelectorAll('.nav-dot');
+  window.addEventListener('scroll', () => { let current = 0; sections.forEach((id, i) => { const el = document.getElementById(id); if (el && el.getBoundingClientRect().top < window.innerHeight * 0.5) current = i; }); dots.forEach((d, i) => d.classList.toggle('active', i === current)); });
+  function selectVote(btn, value) { document.querySelectorAll('.vote-btn').forEach(b => b.classList.remove('selected')); btn.classList.add('selected'); }
+  function submitResponse() { const reaction = document.querySelector('.vote-btn.selected')?.textContent || '—'; const feedback = document.getElementById('feedback-text').value; const schedule = document.getElementById('schedule-text').value; console.log({ brother: selectedBrother, reaction, feedback, schedule }); document.getElementById('response-form').style.opacity = '0.3'; document.getElementById('response-form').style.pointerEvents = 'none'; document.getElementById('sent-state').classList.add('visible'); }
+  document.body.style.overflow = 'hidden';
+</script>
+</body>
+</html>
